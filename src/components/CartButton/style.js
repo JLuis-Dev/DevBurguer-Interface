@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 export const ContainerButton = styled.button`
-    background-color: #9758a6;
+    background-color: ${(props) => props.theme.purple};
     width: 100%;
     height: 40px;
     border: 0;
@@ -11,9 +11,13 @@ export const ContainerButton = styled.button`
     font-size: 30px;    
     cursor: pointer;
     margin-top: 20px;
+    transition: all 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
-        background-color: #6f357c;
+        background-color: ${(props) => props.theme.secondDarkPurple};
     }
 
     img {

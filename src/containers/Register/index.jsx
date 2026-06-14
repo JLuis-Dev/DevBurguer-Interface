@@ -65,9 +65,6 @@ export default function Register() {
             toast.error('Falha ao criar usuário, tente novamente')
         }
 
-
-
-        console.log(status)
     };
 
 

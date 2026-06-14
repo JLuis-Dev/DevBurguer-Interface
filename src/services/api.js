@@ -6,8 +6,9 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async(config) => {
-    const token = await localStorage.getItem('token')
+    const userData = await localStorage.getItem('devburguer:userData');
 
+    const token = userData && JSON.parse(userData).token;
     
     config.headers.authorization = `Bearer ${token}`
 

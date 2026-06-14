@@ -1,26 +1,27 @@
 import PropTypes from "prop-types";
+
 import { Container, CardImage } from "./style";
 import { CartButton } from "../CartButton";
+import { useCart } from "../../hooks/CartContext";
 
 
 
 export function CardProduct({ product }) {
 
-    const price = product.price.
-    toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-;
+    const { putProductOnCart } = useCart();
 
-        return (
-            <Container>
-                <CardImage src={product.url} alt={product.name} />
-                <div>
-                    <p>{product.name}</p>
-                    <strong>{price}</strong>
 
-                </div>
-                <CartButton></CartButton>
-            </Container>
-        );
+    return (
+        <Container>
+            <CardImage src={product.url} alt={product.name} />
+            <div>
+                <p>{product.name}</p>
+                <strong>{product.currencyValue}</strong>
+
+            </div>
+            <CartButton onClick={() => putProductOnCart(product)}></CartButton>
+        </Container>
+    );
 }
 
 CardProduct.propTypes = {

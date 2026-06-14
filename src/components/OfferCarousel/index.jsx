@@ -7,16 +7,36 @@ import { Container, Title } from './style';
 import { api } from '../../services/api';
 import { Pagination, Navigation, A11y } from 'swiper/modules';
 import { CardProduct } from '../CardProduct';
+import { formatPrice } from '../../utils/formatPrice';
 
 export function OffersCarousel() {
     const [offers, setOffers] = useState([]);
+
+    const responsive = {
+        640: {
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+        },
+        768: {
+            slidesPerView: 3,
+            slidesPerGroup: 1,
+        },
+        1024: {
+            slidesPerView: 4,
+            slidesPerGroup: 1,
+        }
+
+    };
+
 
     useEffect(() => {
         async function loadProducts() {
 
             const { data } = await api.get('/products');
             
-            const onlyOffers = data.filter((product) => product.offer);
+            const onlyOffers = data.filter((product) => product.offer).map(product => (
+                {currencyValue: formatPrice(product.price), ...product}
+            ));
 
             setOffers(onlyOffers);
         }
@@ -24,31 +44,15 @@ export function OffersCarousel() {
         loadProducts();
     }, []);
 
-    const responsive = {
-        640: {
-            slidesPerView: 3,
-            slidesPerGroup: 2,
-        },
-        768: {
-            slidesPerView: 4,
-            slidesPerGroup: 3,
-        },
-        1024: {
-            slidesPerView: 6,
-            slidesPerGroup: 2,
-        }
-
-    }
-
     return (
         <Container>
             <Title>OFERTAS DO DIA</Title>
             <Swiper
                 spaceBetween={20}
                 slidesPerView={2}
-                loop={true}
-                loopFillGroupWithBlank={true}
-                navigation={true}
+                loop
+                loopFillGroupWithBlank
+                navigation
                 modules={[ Pagination, Navigation, A11y]}
 
                 breakpoints={ responsive}

@@ -1,9 +1,9 @@
 import { ContainerButton } from "./style";
 
-export function Button({children}) {
+export function Button({ children, onClick, disabled, type = 'button' }) {
     return (
-
-        <ContainerButton>{children}</ContainerButton>
-    )
-        
+        <ContainerButton type={type} onClick={onClick} disabled={disabled}>
+            {children}
+        </ContainerButton>
+    );
 }
